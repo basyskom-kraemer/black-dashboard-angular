@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   public clicked1: boolean = false;
   public clicked2: boolean = false;
 
+  private maxRandom: number = 180;
+
   constructor() {}
 
   ngOnInit() {
@@ -462,7 +464,35 @@ export class DashboardComponent implements OnInit {
       options: gradientBarChartConfiguration
     });
 
+    let timerID = setInterval(() => this.setGraphValue(), 5000);
+    // let timerID = setInterval(() => console.log("Timer interrupts!"), 1000);
   }
+
+  private setGraphValue()
+  {
+    var dataPointsAcc: number[];
+    var dataPointsPurch: number[];
+    var dataPointsSess: number[];
+
+    console.log("Timer interrupts!")
+
+    for(let i=0; i<12; i++)
+    {
+      var rndmNmbr = (Math.random() * this.maxRandom);
+      this.datasets[0][i] = rndmNmbr
+      // dataPointsAcc[i] = rndmNmbr;
+      // dataPointsPurch[i] = rndmNmbr;
+      // dataPointsSess[i] = rndmNmbr;
+      console.log("Number: " + this.datasets[0][i].toString());
+    }
+
+    // this.datasets = [
+    //   dataPointsAcc,
+    //   dataPointsPurch,
+    //   dataPointsSess
+    // ];
+  }
+
   public updateOptions() {
     this.myChartData.data.datasets[0].data = this.data;
     this.myChartData.update();
